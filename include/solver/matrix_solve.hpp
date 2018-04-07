@@ -30,7 +30,13 @@ bool Gauss_Seidel_Method(const Matrix & A,
 
       next_x_i /= A(i, i);
 
-      norm += fabs(next_x_i - x(i));
+      // 1-Norm for absolute error
+      // norm += fabs(next_x_i - x(i));
+
+      // infinite-Norm for absolute error
+      double error = fabs(next_x_i - x(i));
+      norm = norm > error ? norm : error;
+
       x(i) = next_x_i;
     }
   }
