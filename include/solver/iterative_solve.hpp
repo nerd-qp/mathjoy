@@ -4,13 +4,14 @@
   A Gauss Seidel Method to solve linear equations
  */
 
-template<typename Matrix, typename Vector, typename number>
+template<typename Matrix, typename Vector>
 bool Gauss_Seidel_Method(const Matrix & A,
                          // An initial x should be provided,
                          // no default value
                          // please don't pass in the b==x, it is not allowed!!!
                          const Vector & b, Vector & x,
-                         number precision, size_t MAX_ITER = 1e2) {
+                         // with low precision like 1e-6 is no good
+                         double precision = 1e-20, size_t MAX_ITER = 1e5) {
   // This is an iterative process
 
   // This variable is used to determine if the process has converged
@@ -39,6 +40,8 @@ bool Gauss_Seidel_Method(const Matrix & A,
 
       x(i) = next_x_i;
     }
+    // if ( count % static_cast<int>(1e4) == 0 )
+    //   std::cout << norm << '\n';
   }
 
   return true;
