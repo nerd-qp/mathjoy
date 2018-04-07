@@ -46,3 +46,31 @@ bool Gauss_Seidel_Method(const Matrix & A,
 
   return true;
 }
+
+template<typename Matrix, typename Vector>
+bool Conjugate_Gradient_Method(const Matrix & A,
+                               const Vector & b, Vector & x,
+                               double precision = 1e-10,
+                               size_t MAX_ITER = 1e5) {
+  Vector r = b - prod(A, x);
+  Vector p = r;
+  int count = 0;
+  double rsold = inner_prod(r, r), rsnew;
+
+  while ( count++ < MAX_ITER /* && norm > precision */ ) {
+    auto Ap = prod(A, p);
+    double alpha = rsold / (inner_prod(p, Ap));
+    x += alpha * p;
+    r -= alpha * Ap;
+    rsnew = inner_prod(r, r);
+
+    // reach precision
+    if ( rsnew < precision )
+      break;
+    
+    p = r + rsnew / rsold * p;
+    rsold = rsnew;
+  }
+
+  return true;
+}
