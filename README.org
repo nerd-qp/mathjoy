@@ -1,0 +1,3 @@
+* C++ library for math homework
+  Rely on Boost and stl
+
