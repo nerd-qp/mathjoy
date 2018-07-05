@@ -1,3 +1,5 @@
 * C++ library for math homework
-  Rely on Boost and stl
+  Rely on Boost and stl as well gsl, sfml is for visulization
 
+* Added some work from homework
+  unfinished, but you can be able to compile using cmake and the required libraries
