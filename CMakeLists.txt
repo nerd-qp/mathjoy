@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5.1)
 project( FiniteElementAnalysis )
 find_package( Boost )
 find_package( GSL )
+find_package( GTest )
 
 # since 3.1
 set (CMAKE_CXX_STANDARD 11)
@@ -41,7 +42,6 @@ LIST(APPEND SOURCES
   src/quadrature.cpp
 
   src/FVM_2dim.cpp
-
   )
 
 add_library( FEM_FVM STATIC ${SOURCES} )
@@ -66,8 +66,13 @@ add_executable(
   test_FVM.out
   src/test/test_FVM.cpp )
 
+add_executable(
+  test_running
+  test/test_running.cpp )
+
 target_link_libraries( testing_general.out FEM_FVM ${Boost_LIBRARIES} GSL::gsl GSL::gslcblas )
 target_link_libraries( testing_linear.out FEM_FVM ${Boost_LIBRARIES} GSL::gsl GSL::gslcblas )
 target_link_libraries( testing.out FEM_FVM ${Boost_LIBRARIES} GSL::gsl GSL::gslcblas )
 #target_link_libraries( test_delaunary.out FEM_FVM ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} )
 target_link_libraries( test_FVM.out FEM_FVM ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} GSL::gsl GSL::gslcblas )
+target_link_libraries( test_running FEM_FVM ${GTEST_BOTH_LIBRARIES} )# ${GTEST_MAIN_LIBRARIES} ) #${GTEST_LIBRARIES} )
