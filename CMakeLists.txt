@@ -3,6 +3,7 @@ project( FiniteElementAnalysis )
 find_package( Boost )
 find_package( GSL )
 find_package( GTest )
+find_package( benchmark )
 
 # since 3.1
 set (CMAKE_CXX_STANDARD 11)
@@ -70,9 +71,14 @@ add_executable(
   test_running
   test/test_running.cpp )
 
+add_executable(
+  run_benchmark
+  src/benchmark/miscellaneous)
+
 target_link_libraries( testing_general.out FEM_FVM ${Boost_LIBRARIES} GSL::gsl GSL::gslcblas )
 target_link_libraries( testing_linear.out FEM_FVM ${Boost_LIBRARIES} GSL::gsl GSL::gslcblas )
 target_link_libraries( testing.out FEM_FVM ${Boost_LIBRARIES} GSL::gsl GSL::gslcblas )
 #target_link_libraries( test_delaunary.out FEM_FVM ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} )
 target_link_libraries( test_FVM.out FEM_FVM ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} GSL::gsl GSL::gslcblas )
 target_link_libraries( test_running FEM_FVM ${GTEST_BOTH_LIBRARIES} )# ${GTEST_MAIN_LIBRARIES} ) #${GTEST_LIBRARIES} )
+target_link_libraries( run_benchmark benchmark )
